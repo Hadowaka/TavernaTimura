@@ -1,0 +1,77 @@
+{
+  "mainTitle": "TIMUR: Легенда Таверны",
+  "poster": {
+    "src": "Rec_lama.jpg",
+    "width": 220,
+    "height": 330,
+    "alt": "TIMUR постер",
+    "description": "Главный герой вселенной «Таверна TimurikaL» — харизматичный искатель приключений, чьи подвиги вдохновляют тысячи."
+  },
+  "infoCards": [
+    {
+      "title": "📋 Информация",
+      "content": "<strong>Жанр:</strong> Action/RPG<br><strong>Платформы:</strong> PC, PS5, Xbox<br><strong>Дата выхода:</strong> 2025 г.<br><strong>Язык:</strong> Русский, English"
+    },
+    {
+      "title": "⭐ Рейтинг",
+      "content": "<strong>Metacritic:</strong> 88/100<br><strong>Пользователи:</strong> 9.2/10<br><strong>Оценка редакции:</strong> 92%"
+    },
+    {
+      "title": "🏢 Студия",
+      "content": "<strong>Разработчик:</strong> TimurikaL Games<br><strong>Издатель:</strong> Indie World<br><strong>Страна:</strong> Россия / Worldwide"
+    },
+    {
+      "title": "📖 Описание",
+      "content": "«TIMUR» — захватывающее приключение в фэнтези-мире, где каждый выбор меняет сюжет. Исследуйте таверны, сражайтесь с тёмными силами и находите верных спутников."
+    }
+  ],
+  "screenshots": [
+    { "url": "https://via.placeholder.com/300x200?text=Сражение+с+драконом", "alt": "Эпичная битва" },
+    { "url": "https://via.placeholder.com/300x200?text=Таверна+Тимура", "alt": "Интерьер таверны" },
+    { "url": "https://via.placeholder.com/300x200?text=Диалог+с+Ксюшей", "alt": "Встреча с магом" },
+    { "url": "https://via.placeholder.com/300x200?text=Магия+огня", "alt": "Заклинание" }
+  ],
+  "videos": [
+    { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": "Официальный трейлер" },
+    { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": "Геймплейный ролик" },
+    { "embed": "https://www.youtube.com/embed/dQw4w9WgXcQ", "title": "Как создавалась игра" }
+  ],
+  "characters": [
+    {
+      "name": "Тимур",
+      "role": "Главный герой",
+      "desc": "Отважный искатель приключений",
+      "img": "Rec_lama.jpg"
+    },
+    {
+      "name": "Ксюша",
+      "role": "Маг ворда и повелительница РБД",
+      "desc": "Таинственная союзница",
+      "img": "https://via.placeholder.com/100?text=Ksyusha"
+    },
+    {
+      "name": "Гошанчик",
+      "role": "Воин",
+      "desc": "Непобедимый защитник",
+      "img": "https://via.placeholder.com/100?text=Gosh"
+    },
+    {
+      "name": "Никита",
+      "role": "Хоккеист (Снюсоед, Вдохновитель)",
+      "desc": "Отважный хоккеист, способный ушатать шайбой любого",
+      "img": "https://via.placeholder.com/100?text=Nikita"
+    }
+  ],
+  "relatedLinks": [
+    { "text": "TIMUR: Начало", "url": "#" },
+    { "text": "Официальный саундтрек", "url": "#" },
+    { "text": "Таверна Тимы — форум", "url": "#" },
+    { "text": "Комикс «Путь Timurа»", "url": "#" },
+    { "text": "DLC «Тёмный алтарь»", "url": "#" }
+  ],
+  "initialReviews": [
+    { "author": "Геймер78", "date": "2025-02-10", "text": "Отличная игра, жду с нетерпением!" },
+    { "author": "Фанат Тимы", "date": "2025-02-12", "text": "Трейлер огонь, графика шикарная." },
+    { "author": "Elminster", "date": "2025-02-14", "text": "Интригующий сюжет, надеюсь на глубокую ролевую систему." }
+  ]
+}

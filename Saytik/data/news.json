@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "title": "Игры в Steam станут дешевле: Гейб представил абсолютно новую систему рекомендаций региональных цен",
+    "image": "igro_novosti/Gaben_reg_stoimsot.jpg",
+    "alt": "Steam",
+    "link": "te.html"
+  },
+  {
+    "id": 2,
+    "title": "Авторы Genshin Impact начали использовать ИИ в работе — в арте к обновлению 6.5 обнаружили Паймон с шестью пальцами.",
+    "image": "igro_novosti/GenImpII.jpg",
+    "alt": "Заря",
+    "link": "te.html"
+  },
+  {
+    "id": 3,
+    "title": "PS5 сильно подорожает — Sony повышает цены на консоли из-за дефицита оперативной памяти",
+    "image": "igro_novosti/PS5.jpg",
+    "alt": "Atomic Heart 2",
+    "link": "te.html"
+  }
+  ,
+  {
+    "id": 4,
+    "title": "Поиграть в GTA 6 можно будет ещё до выхода — Rockstar ищет тестировщиков.",
+    "image": "igro_novosti/GTA5_Testirovka.jpg",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  },
+  {
+    "id": 5,
+    "title": "🔥 Афиша событий 10 марта — 5 апреля|MTA Province",
+    "image": "igro_novosti/Event schedule March 10 - April 5.jpg",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  },
+  {
+    "id": 6,
+    "title": "Вышло обновление проекта «Minecraft PSP Edition",
+    "image": "igro_novosti/Minecraft PSP Edition.jpg",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  },
+  {
+    "id": 7,
+    "title": "Похоже, Devil May Cry 5 готовится выйти на Nintendo Switch 2",
+    "image": "igro_novosti/DevilMayCry5NS2.jpg",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  },
+  {
+    "id": 8,
+    "title": "Resident Evil Requiem получила обновление с фоторежимом",
+    "image": "igro_novosti/Resident Evil Requiem.png",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  },
+  {
+    "id": 9,
+    "title": "«От рейтрейсинга к слоптрейсингу»: NVIDIA анонсировала DLSS 5, но игроки высмеяли технологию",
+    "image": "igro_novosti/Zaglushka_DLSS.png",
+    "alt": "Atomic Heart",
+    "link": "te.html"
+  }
+
+]

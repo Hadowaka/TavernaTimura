@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "title": "Darksiders 4",
+    "image": "Next_games/Darksiders4.png",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+  {
+    "id": 2,
+    "title": "Заря",
+    "image": "Next_games/Zarya.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+  {
+    "id": 3,
+    "title": "Atomic Heart 2",
+    "image": "Next_games/AT_2.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+  {
+    "id": 4,
+    "title": "STEINS;GATE RE:BOOT",
+    "image": "Next_games/Steins_gate.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+  {
+    "id": 5,
+    "title": "M.I.N.S.K.",
+    "image": "Next_games/minsk.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+    {
+    "id": 6,
+    "title": "Phantom Blade Zero",
+    "image": "Next_games/PhantombladeZero.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  },
+    {
+    "id": 7,
+    "title": "REPLACED",
+    "image": "Next_games/REPLACED.jpg",
+    "imageWidth": 200,
+    "imageHeight": 120,
+    "link": "te.html"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "pageId": "timur",
+  "title": "TIMUR: Легенда Таверны",
+  "rating": {
+    "score": 4.6,
+    "metacritic": "88/100"
+  },
+  "screenshots": [
+    {
+      "id": 1,
+      "url": "image1.jpg",
+      "alt": "Битва с драконом"
+    },
+    {
+      "id": 2,
+      "url": "image2.jpg",
+      "alt": "Таверна"
+    }
+  ]
+}

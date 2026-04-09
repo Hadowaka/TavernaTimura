@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таверна Timurika</title>
+    <style>
+        /*Задаем стиль */
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #696969;
+            padding: 15px 20px;
+            border-bottom: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #DCDCDC;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+            .logo img {
+                height: 40px;
+                width: auto;
+                vertical-align: middle;
+                margin-right: 10px;
+                background-color: #a0a0a0;
+                border: 1px solid #888;
+            }
+
+        #menu, #menu ul {
+            list-style: none;
+            border: 1px solid #A9A9A9;
+            background-color: #696969;
+            padding: 0; margin: 0;
+        }
+        #menu { display: flex; padding: 0; }
+            #menu li {
+                margin-right: 3px;
+                border: 1px solid #ecffec;
+                position: relative;
+            }
+            #menu ul {
+                position: absolute;
+                top: 100%; left: -1px;
+                width: 200px;
+                padding: 0;
+                display: none;
+                z-index: 100;
+            }
+                #menu ul li {
+                    float: none; margin: 0; padding: 0;
+                    line-height: 15px; border: none;
+                }
+            #menu a:link, #menu a:visited {
+                display: block;
+                font-family: Tahoma, sans-serif;
+                font-size: 0.75em;
+                font-weight: bold;
+                text-align: left;
+                text-decoration: none;
+                color: #DCDCDC;
+                padding: 8px 10px;
+                white-space: nowrap;
+            }
+            #menu li:hover {
+                background-color: #FFF8DC;
+                border: 1px solid #000;
+            }
+                #menu li:hover ul { display: block; }
+            #menu ul li:hover {
+                background-color: #708090;
+                border: 1px solid #000;
+            }
+            #menu ul li a { border: none; }
+
+        /* Адаптивный поиск */
+        .search {
+            margin-left: 10px;
+            flex-shrink: 0;
+            flex-grow: 1;
+            min-width: 120px;
+            width: auto;
+        }
+            .search input {
+                padding: 6px 15px;
+                border: 2px solid #A9A9A9;
+                border-radius: 20px;
+                background-color: #DCDCDC;
+                color: #fff;
+                font-size: 14px;
+                width: 100%;
+                box-sizing: border-box;
+                transition: all 0.3s;
+            }
+                .search input:hover {
+                    background-color: #909090;
+                    border-color: #FFF8DC;
+                }
+                .search input:focus {
+                    outline: none;
+                    background-color: #fff;
+                    color: #333;
+                    border-color: #ffd98a;
+                    box-shadow: 0 0 5px #ffd98a;
+                }
+
+        .forum {
+            margin-left: 10px;
+            background-color: #696969;
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+            .forum a {
+                color: #DCDCDC;
+                text-decoration: none;
+                font-size: 1.5rem;
+                line-height: 1;
+            }
+                .forum a:hover { color: #ffd98a; }
+
+        .office-link a {
+            color: #DCDCDC;
+            text-decoration: none;
+            font-weight: 500;
+        }
+            .office-link a:hover {
+                color: #ffd98a;
+                text-decoration: underline;
+            }
+        .office-link {
+            margin-left: 10px;
+            background-color: #696969;
+            flex-shrink: 0;
+        }
+
+        /* Темы дня - одна строка, без переносов */
+        .header_2 {
+            background-color: #DCDCDC;
+            padding: 4px 15px;
+            border-bottom: 2px solid #D3D3D3;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 30px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .header_2::-webkit-scrollbar { display: none; }
+
+            .header_2 a {
+                color: #000000;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 4px;
+                white-space: nowrap;
+                flex-shrink: 0;
+            }
+                .header_2 a:hover { color: #ff0000; }
+                .header_2 a:visited { color: #000000; }
+                .header_2 a:active { color: #ff0000; }
+            .header_2 img {
+                vertical-align: middle;
+                background-color: #b0b0b0;
+                flex-shrink: 0;
+            }
+
+        .theme-title {
+            display: inline-block;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: middle;
+        }
+        @media (max-width: 1024px) { .theme-title { max-width: 160px; } }
+        @media (max-width: 768px)  { .theme-title { max-width: 120px; } }
+        @media (max-width: 480px)  { .theme-title { max-width: 90px; } }
+
+        .Oschimdaemie_igri {
+            background-color: #DCDCDC;
+            padding: 4px 20px;
+            border-bottom: 2px solid #D3D3D3;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 200px;
+        }
+
+        @media (max-width: 900px) {
+            .search { max-width: none; width: 100%; }
+        }
+        @media (max-width: 700px) {
+            header { flex-wrap: wrap; }
+            .search { margin-left: 0; width: 100%; max-width: none; }
+            #menu { flex-wrap: wrap; }
+        }
+
+        .header_2 span,
+        .Oschimdaemie_igri span {
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+        }
+
+        /* Карусель - карточки + стрелки по бокам */
+        .games-carousel {
+            position: relative;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .games-carousel__arrow {
+            background: #696969;
+            border: 2px solid #A9A9A9;
+            color: #DCDCDC;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+            flex-shrink: 0;
+            user-select: none;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+        .games-carousel__arrow:hover:not(:disabled) {
+            background: #708090;
+            color: #fff;
+            border-color: #ffd98a;
+        }
+        .games-carousel__arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Контейнер для трека - карточек */
+        .games-carousel__viewport {
+            flex: 1;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+
+        .games-carousel__track {
+            display: flex;
+            gap: 15px;
+            transition: transform 0.4s ease;
+            will-change: transform;
+        }
+
+        .games-carousel__item {
+            flex: 0 0 200px;  /* Фиксированная ширина карточки */
+            text-align: center;
+        }
+        .games-carousel__item a {
+            color: #000000;
+            text-decoration: none;
+            display: block;
+        }
+        .games-carousel__item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin-bottom: 8px;
+        }
+
+        .image_games {
+            justify-content: center;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+            .image_games a {
+                color: #000000;
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                white-space: nowrap;
+            }
+
+        .Reclama {
+            justify-content: center;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .Pod_block_reclama {
+            background-color: #DCDCDC;
+            padding: 4px 20px;
+            border-bottom: 2px solid #D3D3D3;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 20px auto 15px auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .image_novosti {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+            .image_novosti a {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;
+                color: #000;
+                width: 350px;
+                text-align: center;
+            }
+            .image_novosti img {
+                width: 100%;
+                height: auto;
+                display: block;
+                margin-bottom: 8px;
+            }
+            .image_novosti span {
+                font-weight: bold;
+                color: #333;
+            }
+
+        /* Обрезаем заголовки новостей до 3 строк */
+        .news-title-clamp {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
+            max-height: 4.2em;
+            text-align: center;
+        }
+
+        /* Адаптив для карусели */
+        @media (max-width: 1100px) {
+            .games-carousel__item { flex: 0 0 180px; }
+        }
+        @media (max-width: 950px) {
+            .games-carousel__item { flex: 0 0 160px; }
+        }
+        @media (max-width: 850px) {
+            .games-carousel__item { flex: 0 0 140px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="TavernaTimur.html">
+                <img src="Logo.jpg" alt="Таверна Тимы — логотип">
+            </a>
+            <span>Таверна Тимы</span>
+        </div>
+        <ul id="menu">
+            <li><a href="#">Игры</a>
+                <ul>
+                    <li><a href="#">Ожидаемые игры</a></li>
+                    <li><a href="#">Игроновости</a></li>
+                    <li><a href="#">Каталог игр</a></li>
+                    <li><a href="#">Ретро-спектива</a></li>
+                    <li><a href="#">И ещё</a></li>
+                    <li><a href="#">И тут что-то ещё</a></li>
+                    <li><a href="#">Тимур</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Сообщество</a>
+                <ul>
+                    <li><a href="#">Форум</a></li>
+                    <li><a href="https://www.woman.ru/forum/">Вумен ру</a></li>
+                    <li><a href="#">Форум по доте</a></li>
+                    <li><a href="#">Создать форум</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Разное</a></li>
+        </ul>
+        <div class="search">
+            <input type="text" placeholder="🔍 Поиск по сайту...">
+        </div>
+        <div class="forum"><a href="te.html">💬</a></div>
+        <div class="office-link"><a href="TavernaTimurReg.html">Личный кабинет</a></div>
+    </header>
+
+    <!-- Темы дня -->
+    <div id="themes-container"></div>
+
+    <!-- Ожидаемые игры -->
+    <div class="Oschimdaemie_igri"><span>Ожидаемые игры</span></div>
+    <main>
+        <!-- Карусель игр - карточки + стрелки -->
+        <div class="games-carousel">
+            <button class="games-carousel__arrow games-carousel__arrow--left" aria-label="Назад" disabled>‹</button>
+            <div class="games-carousel__viewport">
+                <div class="games-carousel__track" id="games-track"></div>
+            </div>
+            <button class="games-carousel__arrow games-carousel__arrow--right" aria-label="Вперёд">›</button>
+        </div>
+        <div class="Reclama">
+            <a href="te_rec.html"><img src="Reclama.jpg" width="1064" height="160" alt="Реклама"></a>
+        </div>
+    </main>
+
+    <!-- Игроновости -->
+    <div class="Pod_block_reclama"><span>Игроновости</span></div>
+    <main>
+        <div id="news-container" class="image_novosti"></div>
+    </main>
+
+    <script>
+        // Темы дня - одна строка, обрезка длинных названий
+        async function loadThemes() {
+            try {
+                const response = await fetch('data/themes.json');
+                const themes = await response.json();
+                const container = document.getElementById('themes-container');
+                
+                let html = `<div class="header_2"><span>Темы дня</span>`;
+                themes.forEach(theme => {
+                    html += `<a href="${theme.link}" title="${theme.title}">
+                        <img src="${theme.icon}" width="${theme.iconWidth}" height="${theme.iconHeight}" alt="${theme.title}">
+                        <span class="theme-title">${theme.title}</span>
+                    </a>`;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Ошибка загрузки тем:', error);
+                document.getElementById('themes-container').innerHTML = 
+                    '<div class="header_2"><span>Ошибка загрузки тем</span></div>';
+            }
+        }
+
+        // Игры - карусель для карточек
+        async function loadGames() {
+            try {
+                const response = await fetch('data/games.json');
+                const games = await response.json();
+                
+                const track = document.getElementById('games-track');
+                const viewport = document.querySelector('.games-carousel__viewport');
+                const btnLeft = document.querySelector('.games-carousel__arrow--left');
+                const btnRight = document.querySelector('.games-carousel__arrow--right');
+                
+                // Рендер карточек
+                track.innerHTML = games.map(game => `
+                    <div class="games-carousel__item">
+                        <a href="${game.link}">
+                            <img src="${game.image}" width="${game.imageWidth}" height="${game.imageHeight}" alt="${game.title}">
+                            ${game.title}
+                        </a>
+                    </div>
+                `).join('');
+
+                // Параметры карусели
+                const CARD_WIDTH = 200;
+                const GAP = 15;
+                const ITEM_FULL_WIDTH = CARD_WIDTH + GAP;
+                const VISIBLE_CARDS = 5;
+                
+                let currentIndex = 0;
+                let maxIndex = Math.max(0, games.length - VISIBLE_CARDS);
+
+                // Функция обновления позиции и кнопок
+                function updateCarousel() {
+                    const offset = -(currentIndex * ITEM_FULL_WIDTH);
+                    track.style.transform = `translateX(${offset}px)`;
+                    
+                    // Блокировка кнопок на краях 
+                    btnLeft.disabled = currentIndex <= 0;
+                    btnRight.disabled = currentIndex >= maxIndex;
+                }
+
+                // Обработчик стрелок
+                btnLeft.addEventListener('click', () => {
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                        updateCarousel();
+                    }
+                });
+
+                btnRight.addEventListener('click', () => {
+                    if (currentIndex < maxIndex) {
+                        currentIndex++;
+                        updateCarousel();
+                    }
+                });
+
+                // Пересчёт при ресайзе (если ширина карточек меняется)
+                window.addEventListener('resize', () => {
+                    const item = track.querySelector('.games-carousel__item');
+                    if (item) {
+                        const newCardWidth = item.offsetWidth;
+                        const newGap = 15;
+                        const newItemWidth = newCardWidth + newGap;
+                        const visibleItems = Math.floor(viewport.offsetWidth / newItemWidth);
+                        maxIndex = Math.max(0, games.length - visibleItems);
+                        if (currentIndex > maxIndex) {
+                            currentIndex = maxIndex;
+                        }
+                        updateCarousel();
+                    }
+                });
+
+                // Инициализация
+                setTimeout(updateCarousel, 50);
+
+            } catch (error) {
+                console.error('Ошибка загрузки игр:', error);
+                document.getElementById('games-track').innerHTML = 
+                    '<div style="text-align:center;padding:20px;width:100%">Ошибка загрузки игр</div>';
+            }
+        }
+
+        // Новости - обрезаем до 3 строк
+        async function loadNews() {
+            try {
+                const response = await fetch('data/news.json');
+                const news = await response.json();
+                const container = document.getElementById('news-container');
+                
+                container.innerHTML = news.map(item => `
+                    <a href="${item.link}">
+                        <img src="${item.image}" alt="${item.alt}">
+                        <span class="news-title-clamp" title="${item.title}">${item.title}</span>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('Ошибка загрузки новостей:', error);
+                document.getElementById('news-container').innerHTML = 
+                    '<div style="text-align:center;padding:20px">Ошибка загрузки новостей</div>';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadThemes();
+            loadGames();
+            loadNews();
+        });
+    </script>
+</body>
+</html>

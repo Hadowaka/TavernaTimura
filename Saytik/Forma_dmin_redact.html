@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заголовок страницы</title>
+    <style>
+        /* ========== Базовые сбросы и тело ========== */ 
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f5f5f5;
+        }
+
+        /* ========== Шапка ========== */
+        header {
+            background-color: #696969;
+            padding: 15px 20px;
+            border-bottom: 2px solid #ccc;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #DCDCDC;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+            vertical-align: middle;
+            margin-right: 10px;
+            background-color: #a0a0a0;
+            border: 1px solid #888;
+        }
+
+        /* ========== Мменю с выпадайками ========== */
+        #menu, #menu ul {
+            list-style: none;
+            border: 1px solid #A9A9A9;
+            background-color: #696969;
+            padding: 0;
+            margin: 0;
+        }
+
+        #menu {
+            display: flex;
+            padding: 0;
+        }
+
+        #menu li {
+            margin-right: 3px;
+            border: 1px solid #ecffec;
+            position: relative;
+        }
+
+        #menu ul {
+            position: absolute;
+            top: 100%;
+            left: -1px;
+            width: 200px;
+            padding: 0;
+            display: none;
+            z-index: 100;
+        }
+
+        #menu ul li {
+            float: none;
+            margin: 0;
+            padding: 0;
+            line-height: 15px;
+            border: none;
+        }
+
+        #menu a:link, #menu a:visited {
+            display: block;
+            font-family: Tahoma, sans-serif;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-align: left;
+            text-decoration: none;
+            color: #DCDCDC;
+            padding: 8px 10px;
+            white-space: nowrap;
+        }
+
+        #menu li:hover {
+            background-color: #FFF8DC;
+            border: 1px solid #000;
+        }
+
+        #menu li:hover ul {
+            display: block;
+        }
+
+        #menu ul li:hover {
+            background-color: #708090;
+            border: 1px solid #000;
+        }
+
+        #menu ul li a {
+            border: none;
+        }
+
+        /* ========== поиск ========== */
+        .search {
+            margin-left: 10px;
+            flex-shrink: 0;
+            flex-grow: 1;
+            min-width: 120px;
+            width: auto;
+        }
+
+        .search input {
+            padding: 6px 15px;
+            border: 2px solid #A9A9A9;
+            border-radius: 20px;
+            background-color: #DCDCDC;
+            color: #fff;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+
+        .search input:hover {
+            background-color: #909090;
+            border-color: #FFF8DC;
+        }
+
+        .search input:focus {
+            outline: none;
+            background-color: #fff;
+            color: #333;
+            border-color: #ffd98a;
+            box-shadow: 0 0 5px #ffd98a;
+        }
+
+        .forum {
+            margin-left: 10px;
+            background-color: #696969;
+            font-weight: bold;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .forum a {
+            color: #DCDCDC;
+            text-decoration: none;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .forum a:hover {
+            color: #ffd98a;
+        }
+
+        .office-link a {
+            color: #DCDCDC;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .office-link a:hover {
+            color: #ffd98a;
+            text-decoration: underline;
+        }
+
+        .office-link {
+            margin-left: 10px;
+            background-color: #696969;
+            flex-shrink: 0;
+        }
+
+        /* ========== Основная информация ========== */
+        main {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 200px;
+        }
+
+        /* ========== Стили для блоков ========== */
+        .section-header {
+            background-color: #DCDCDC;
+            padding: 8px 20px;
+            border-bottom: 2px solid #D3D3D3;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 30px 0 20px 0;
+            width: 100%;
+            display: inline-block;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+
+        .info-card {
+            background: #f9f9f9;
+            border-left: 4px solid #696969;
+            padding: 12px 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .info-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #2c3e2f;
+            border-bottom: 1px dashed #ccc;
+            display: inline-block;
+        }
+
+        .info-card p {
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .screenshots-grid, .videos-grid, .characters-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+            justify-content: flex-start;
+        }
+
+        .screenshot-item {
+            width: calc(25% - 20px);
+            min-width: 160px;
+            transition: transform 0.2s;
+        }
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background: #eee;
+        }
+        .screenshot-item:hover {
+            transform: scale(1.02);
+        }
+
+        .video-item {
+            width: calc(33% - 20px);
+            min-width: 260px;
+            background: #f1f1f1;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .video-item iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+        .video-caption {
+            padding: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+            background: #e6e6e6;
+        }
+
+        .character-card {
+            width: calc(25% - 20px);
+            min-width: 170px;
+            background: #fef7e0;
+            border-radius: 16px;
+            text-align: center;
+            padding: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .character-card img {
+            width: 100%;
+            max-width: 120px;
+            border-radius: 50%;
+            background: #d9d9d9;
+            margin-bottom: 8px;
+        }
+        .character-card h4 {
+            margin: 8px 0 4px;
+        }
+
+        .related-links {
+            background: #f4f4f4;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+        .related-links a {
+            display: inline-block;
+            margin: 6px 12px 6px 0;
+            background: #696969;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .related-links a:hover {
+            background: #ffd98a;
+            color: #000;
+        }
+
+        .reviews-section {
+            margin-top: 40px;
+            border-top: 2px solid #ccc;
+            padding-top: 20px;
+        }
+        .add-review-btn {
+            background-color: #696969;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            margin-bottom: 25px;
+            transition: 0.2s;
+        }
+        .add-review-btn:hover {
+            background-color: #ffd98a;
+            color: #1e1e1e;
+        }
+        .review-card {
+            background: #fafaf0;
+            border-left: 5px solid #ffd98a;
+            padding: 12px 20px;
+            margin-bottom: 15px;
+            border-radius: 12px;
+        }
+        .review-author {
+            font-weight: bold;
+            color: #5a3e1b;
+        }
+        .review-date {
+            font-size: 0.75rem;
+            color: gray;
+            margin-left: 12px;
+        }
+        .review-text {
+            margin: 8px 0 0 0;
+            line-height: 1.4;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+        }
+        .modal-content input, .modal-content textarea {
+            width: 100%;
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #aaa;
+            border-radius: 12px;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        @media (max-width: 900px) {
+            .search { max-width: none; width: 100%; }
+            .screenshot-item { width: calc(50% - 20px); }
+            .video-item { width: calc(50% - 20px); }
+            .character-card { width: calc(50% - 20px); }
+        }
+        @media (max-width: 700px) {
+            header { flex-wrap: wrap; }
+            .search { margin-left: 0; width: 100%; max-width: none; }
+            #menu { flex-wrap: wrap; }
+            .screenshot-item, .video-item, .character-card { width: 100%; }
+        }
+
+        .main-poster {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        .main-poster img {
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="#">
+                <img src="" alt="Логотип">
+            </a>
+            <span>Название проекта</span>
+        </div>
+        <ul id="menu">
+            <li><a href="#">Раздел 1</a>
+                <ul>
+                    <li><a href="#">Подраздел 1.1</a></li>
+                    <li><a href="#">Подраздел 1.2</a></li>
+                    <li><a href="#">Подраздел 1.3</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Раздел 2</a>
+                <ul>
+                    <li><a href="#">Подраздел 2.1</a></li>
+                    <li><a href="#">Подраздел 2.2</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Раздел 3</a></li>
+        </ul>
+        <div class="search">
+            <input type="text" placeholder="🔍 Поиск по сайту...">
+        </div>
+        <div class="forum"><a href="#">💬</a></div>
+        <div class="office-link"><a href="#">Личный кабинет</a></div>
+    </header>
+
+    <main>
+        <h1 id="mainTitle">Заголовок страницы</h1>
+
+        <div id="posterContainer" class="main-poster"></div>
+
+        <div id="infoGrid" class="info-grid"></div>
+
+        <div class="section-header">🎬 Кадры</div>
+        <div id="screenshots-container" class="screenshots-grid">--</div>
+
+        <div class="section-header">📺 Видео</div>
+        <div id="videos-container" class="videos-grid">--</div>
+
+        <div class="section-header">⚔️ Главные герои</div>
+        <div id="characters-container" class="characters-grid">--</div>
+
+        <div class="section-header">🔗 Связанное</div>
+        <div id="relatedLinksContainer" class="related-links">--</div>
+
+        <div class="reviews-section">
+            <button id="openReviewModal" class="add-review-btn">➕ Добавить отзыв</button>
+            <div class="section-header" style="margin-top:0;">💬 Отзывы игроков</div>
+            <div id="reviews-list">--</div>
+        </div>
+    </main>
+
+    <div id="reviewModal" class="modal">
+        <div class="modal-content">
+            <h3>Написать отзыв</h3>
+            <input type="text" id="reviewName" placeholder="Ваше имя" value="Гость">
+            <textarea id="reviewText" rows="3" placeholder="Поделитесь впечатлениями..."></textarea>
+            <div class="modal-buttons">
+                <button id="submitReviewBtn" style="background:#696969; color:white; border:none; padding:6px 16px; border-radius:30px;">Отправить</button>
+                <button id="closeModalBtn" style="background:#aaa;">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ========== Конфигуркция для заполнения ==========
+        // Предполагается, что сюда будем пихать данные перед передачей в Python
+        const pageData = {
+            mainTitle: "Заголовок страницы",
+            poster: {
+                src: "",
+                width: "400",
+                height: "auto",
+                alt: "Описание постера",
+                description: "Описание изображения"
+            },
+            infoCards: [
+                { title: "Карточка 1", content: "Содержание карточки 1" },
+                { title: "Карточка 2", content: "Содержание карточки 2" }
+            ],
+            screenshots: [
+                { url: "", alt: "Скриншот 1" },
+                { url: "", alt: "Скриншот 2" }
+            ],
+            videos: [
+                { embed: "", title: "Видео 1" },
+                { embed: "", title: "Видео 2" }
+            ],
+            characters: [
+                { img: "", name: "Персонаж 1", role: "Роль", desc: "Описание" },
+                { img: "", name: "Персонаж 2", role: "Роль", desc: "Описание" }
+            ],
+            relatedLinks: [
+                { url: "#", text: "Ссылка 1" },
+                { url: "#", text: "Ссылка 2" }
+            ],
+            initialReviews: [
+                { author: "Автор 1", date: "2024-01-01", text: "Текст отзыва 1" }
+            ]
+        };
+
+        // ========== Скрипты для отображения (не трогать!) ==========
+        let reviewsArray = [];
+
+        function escapeHtml(str) {
+            if(!str) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if(m === '&') return '&amp;';
+                if(m === '<') return '&lt;';
+                if(m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function renderReviews() {
+            const container = document.getElementById('reviews-list');
+            if (!container) return;
+            if (reviewsArray.length === 0) {
+                container.innerHTML = '<p style="padding:12px;">Нет отзывов.</p>';
+                return;
+            }
+            container.innerHTML = reviewsArray.map(rev => `
+                <div class="review-card">
+                    <div>
+                        <span class="review-author">${escapeHtml(rev.author)}</span>
+                        <span class="review-date">${rev.date}</span>
+                    </div>
+                    <p class="review-text">${escapeHtml(rev.text)}</p>
+                </div>
+            `).join('');
+        }
+
+        function addNewReview(author, text) {
+            if(!author.trim()) author = "Аноним";
+            if(!text.trim()) return false;
+            const newReview = {
+                id: Date.now(),
+                author: author.trim(),
+                date: new Date().toISOString().slice(0,10),
+                text: text.trim()
+            };
+            reviewsArray.unshift(newReview);
+            renderReviews();
+            return true;
+        }
+
+        function loadAllData() {
+            const data = pageData;
+
+            document.getElementById('mainTitle').textContent = data.mainTitle || "Заголовок страницы";
+
+            const posterContainer = document.getElementById('posterContainer');
+            if (data.poster && data.poster.src) {
+                posterContainer.innerHTML = `
+                    <img src="${data.poster.src}" width="${data.poster.width}" height="${data.poster.height}" alt="${data.poster.alt}">
+                    <div style="flex:1">
+                        <p style="font-style:italic; color:#555;">${data.poster.description}</p>
+                    </div>
+                `;
+            } else {
+                posterContainer.innerHTML = '<p>Нет постера</p>';
+            }
+
+            const infoGrid = document.getElementById('infoGrid');
+            if (data.infoCards && data.infoCards.length) {
+                infoGrid.innerHTML = data.infoCards.map(card => `
+                    <div class="info-card">
+                        <h3>${card.title}</h3>
+                        <p>${card.content}</p>
+                    </div>
+                `).join('');
+            } else {
+                infoGrid.innerHTML = '<p>Нет информационных карточек</p>';
+            }
+
+            const screensContainer = document.getElementById('screenshots-container');
+            if (data.screenshots && data.screenshots.length) {
+                screensContainer.innerHTML = data.screenshots.map(img => `
+                    <div class="screenshot-item">
+                        <img src="${img.url}" alt="${img.alt}" loading="lazy">
+                        <div style="text-align:center; font-size:0.8rem;">${img.alt}</div>
+                    </div>
+                `).join('');
+            } else {
+                screensContainer.innerHTML = '<p>Нет скриншотов</p>';
+            }
+
+            const videosContainer = document.getElementById('videos-container');
+            if (data.videos && data.videos.length) {
+                videosContainer.innerHTML = data.videos.map(vid => `
+                    <div class="video-item">
+                        <iframe src="${vid.embed}" title="${vid.title}" allowfullscreen></iframe>
+                        <div class="video-caption">${vid.title}</div>
+                    </div>
+                `).join('');
+            } else {
+                videosContainer.innerHTML = '<p>Нет видео</p>';
+            }
+
+            const charactersContainer = document.getElementById('characters-container');
+            if (data.characters && data.characters.length) {
+                charactersContainer.innerHTML = data.characters.map(ch => `
+                    <div class="character-card">
+                        <img src="${ch.img}" alt="${ch.name}">
+                        <h4>${ch.name}</h4>
+                        <p><strong>${ch.role}</strong><br>${ch.desc}</p>
+                    </div>
+                `).join('');
+            } else {
+                charactersContainer.innerHTML = '<p>Нет данных о персонажах</p>';
+            }
+
+            const relatedContainer = document.getElementById('relatedLinksContainer');
+            if (data.relatedLinks && data.relatedLinks.length) {
+                relatedContainer.innerHTML = data.relatedLinks.map(link => `
+                    <a href="${link.url}">${link.text}</a>
+                `).join('');
+            } else {
+                relatedContainer.innerHTML = '<p>Нет ссылок</p>';
+            }
+
+            if (data.initialReviews && data.initialReviews.length) {
+                reviewsArray = data.initialReviews.map((rev, idx) => ({ ...rev, id: idx }));
+            } else {
+                reviewsArray = [];
+            }
+            renderReviews();
+        }
+        const modal = document.getElementById('reviewModal');
+        const openBtn = document.getElementById('openReviewModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const submitBtn = document.getElementById('submitReviewBtn');
+
+        function openModal() { modal.style.display = 'flex'; }
+        function closeModal() {
+            modal.style.display = 'none';
+            document.getElementById('reviewName').value = 'Гость';
+            document.getElementById('reviewText').value = '';
+        }
+        if(openBtn) openBtn.addEventListener('click', openModal);
+        if(closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if(submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                const nameInput = document.getElementById('reviewName');
+                const textInput = document.getElementById('reviewText');
+                const author = nameInput.value.trim() === '' ? 'Гость' : nameInput.value;
+                const text = textInput.value.trim();
+                if(text === "") {
+                    alert("Напишите текст отзыва!");
+                    return;
+                }
+                addNewReview(author, text);
+                closeModal();
+                document.querySelector('.reviews-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        }
+        window.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAllData();
+        });
+    </script>
+</body>
+</html>

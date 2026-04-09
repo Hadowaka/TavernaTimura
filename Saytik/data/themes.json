@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Комп помойка, помогите",
+    "icon": "pc.png",
+    "iconWidth": 16,
+    "iconHeight": 16,
+    "link": "te.html"
+  },
+  {
+    "id": 2,
+    "title": "CS2 лагает? Настрой ПК правильно",
+    "icon": "cs.png",
+    "iconWidth": 16,
+    "iconHeight": 16,
+    "link": "te.html"
+  },
+  {
+    "id": 3,
+    "title": "Анонс Atomic Heart 2",
+    "icon": "AH.png",
+    "iconWidth": 16,
+    "iconHeight": 8,
+    "link": "te.html"
+  },
+  {
+    "id": 4,
+    "title": "Анонс Бесконечное лето 2",
+    "icon": "Es.png",
+    "iconWidth": 16,
+    "iconHeight": 8,
+    "link": "te.html"
+  },
+  {
+    "id": 5,
+    "title": "Видеокарта фоафщаодфлавоыфдлаоыфдлаоыфдлаоыфдаоыфдлафоыдаыфдофл",
+    "icon": "Videocart.png",
+    "iconWidth": 16,
+    "iconHeight": 8,
+    "link": "te.html"
+  },
+    {
+    "id": 6,
+    "title": "Как скачать deepseek?",
+    "icon": "Videocart.png",
+    "iconWidth": 16,
+    "iconHeight": 8,
+    "link": "te.html"
+  }
+]
