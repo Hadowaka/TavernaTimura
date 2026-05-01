@@ -1,21 +1,18 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Таверна TimurikaL</title>
+    <title>Таверна Timurika - Регистрация</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
             font-family: sans-serif;
-            background-color: #f5f5f5; /* легкий фон для контраста, чтобы не слепить белый */
+            background-color: #f5f5f5;
         }
 
-        /* Основная шапка */
         header {
             background-color: #696969;
             padding: 15px 20px;
@@ -23,10 +20,9 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            flex-wrap: wrap; /* на узких экранах переносим */
+            flex-wrap: wrap;
         }
 
-        /* Логотип */
         .logo {
             font-size: 24px;
             font-weight: bold;
@@ -35,117 +31,90 @@
             display: flex;
             align-items: center;
         }
+        .logo img {
+            height: 40px;
+            width: auto;
+            vertical-align: middle;
+            margin-right: 10px;
+            background-color: #a0a0a0;
+            border: 1px solid #888;
+        }
 
-            .logo img {
-                height: 40px;
-                width: auto;
-                vertical-align: middle;
-                margin-right: 10px;
-                /* даже если картинка не загрузится сделаем рамку */
-                background-color: #a0a0a0;
-                border: 1px solid #888;
-            }
-
-        /* Меню с выпадайками */
         #menu, #menu ul {
             list-style: none;
             border: 1px solid #A9A9A9;
             background-color: #696969;
-            padding: 0;
-            margin: 0;
+            padding: 0; margin: 0;
         }
-
-        #menu {
-            display: flex;
-            padding: 0;
+        #menu { display: flex; padding: 0; }
+        #menu li {
+            margin-right: 3px;
+            border: 1px solid #ecffec;
+            position: relative;
         }
+        #menu ul {
+            position: absolute;
+            top: 100%; left: -1px;
+            width: 200px;
+            padding: 0;
+            display: none;
+            z-index: 100;
+        }
+        #menu ul li {
+            float: none; margin: 0; padding: 0;
+            line-height: 15px; border: none;
+        }
+        #menu a:link, #menu a:visited {
+            display: block;
+            font-family: Tahoma, sans-serif;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-align: left;
+            text-decoration: none;
+            color: #DCDCDC;
+            padding: 8px 10px;
+            white-space: nowrap;
+        }
+        #menu li:hover {
+            background-color: #FFF8DC;
+            border: 1px solid #000;
+        }
+        #menu li:hover ul { display: block; }
+        #menu ul li:hover {
+            background-color: #708090;
+            border: 1px solid #000;
+        }
+        #menu ul li a { border: none; }
 
-            #menu li {
-                margin-right: 3px;
-                border: 1px solid #ecffec;
-                position: relative;
-            }
-
-            #menu ul {
-                position: absolute;
-                top: 100%;
-                left: -1px;
-                width: 200px;
-                padding: 0;
-                display: none;
-                z-index: 100;
-            }
-
-                #menu ul li {
-                    float: none;
-                    margin: 0;
-                    padding: 0;
-                    line-height: 15px;
-                    border: none;
-                }
-
-            #menu a:link, #menu a:visited {
-                display: block;
-                font-family: Tahoma, sans-serif;
-                font-size: 0.75em;
-                font-weight: bold;
-                text-align: left;
-                text-decoration: none;
-                color: #DCDCDC;
-                padding: 8px 10px;
-                white-space: nowrap;
-            }
-
-            #menu li:hover {
-                background-color: #ffd98a;
-                border: 1px solid #000;
-            }
-
-                #menu li:hover ul {
-                    display: block;
-                }
-
-            #menu ul li:hover {
-                background-color: #FFFFFF;
-                border: 1px solid #000;
-            }
-
-            #menu ul li a {
-                border: none;
-            }
-
-        /* Поисковик */
         .search {
             margin-left: 10px;
             flex-shrink: 0;
             flex-grow: 1;
-            max-width: 600px;
+            min-width: 120px;
+            width: auto;
         }
-
-            .search input {
-                padding: 6px 15px;
-                border: 2px solid #A9A9A9;
-                border-radius: 20px;
-                background-color: #DCDCDC;
-                color: #fff;
-                font-size: 14px;
-                width: 100%;
-                box-sizing: border-box;
-                transition: all 0.3s;
-            }
-
-                .search input:hover {
-                    background-color: #909090;
-                    border-color: #ffd98a;
-                }
-
-                .search input:focus {
-                    outline: none;
-                    background-color: #fff;
-                    color: #333;
-                    border-color: #ffd98a;
-                    box-shadow: 0 0 5px #ffd98a;
-                }
+        .search input {
+            padding: 6px 15px;
+            border: 2px solid #A9A9A9;
+            border-radius: 20px;
+            background-color: #DCDCDC;
+            color: #fff;
+            font-size: 14px;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s;
+        }
+        .search input:hover {
+            background-color: #909090;
+            border-color: #FFF8DC;
+        }
+        .search input:focus {
+            outline: none;
+            background-color: #fff;
+            color: #333;
+            border-color: #ffd98a;
+            box-shadow: 0 0 5px #ffd98a;
+        }
 
         /* Иконка форума */
         .forum {
@@ -157,17 +126,13 @@
             display: flex;
             align-items: center;
         }
-
-            .forum a {
-                color: #DCDCDC;
-                text-decoration: none;
-                font-size: 1.5rem; /* чтобы эмодзи был заметен */
-                line-height: 1;
-            }
-
-                .forum a:hover {
-                    color: #ffd98a;
-                }
+        .forum a {
+            color: #DCDCDC;
+            text-decoration: none;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+        .forum a:hover { color: #ffd98a; }
 
         /* Ссылка на личный кабинет */
         .office-link a {
@@ -175,20 +140,17 @@
             text-decoration: none;
             font-weight: 500;
         }
-
-            .office-link a:hover {
-                color: #ffd98a;
-                text-decoration: underline;
-            }
-
+        .office-link a:hover {
+            color: #ffd98a;
+            text-decoration: underline;
+        }
         .office-link {
             margin-left: 10px;
             background-color: #696969;
             flex-shrink: 0;
         }
 
-        
-        /* Основной контент на странице */
+        /* Основной контент */
         main {
             padding: 20px;
             max-width: 1200px;
@@ -198,203 +160,259 @@
             min-height: 200px;
         }
 
-        /* Адаптив под экраны */
         @media (max-width: 900px) {
-            .search {
-                max-width: 300px;
-            }
+            .search { max-width: none; width: 100%; }
         }
-
         @media (max-width: 700px) {
-            header {
-                flex-wrap: wrap;
-            }
+            header { flex-wrap: wrap; }
+            .search { margin-left: 0; width: 100%; max-width: none; }
+            #menu { flex-wrap: wrap; }
+        }
 
-            .search {
-                margin-left: 0;
-                width: 100%;
-                max-width: 100%;
-            }
-            /* чтобы меню не убегало */
-            #menu {
-                flex-wrap: wrap;
-            }
+        /* ===== Регистрация ===== */
+        
+        /* Блоки ввода  */
+        .input-group {
+            margin-bottom: 20px;
+            max-width: 500px;
         }
-        .login {
-            margin-left: 0px;
-            flex-shrink: 0;
-            flex-grow: 1;
-            max-width: 600px;
-        }
-        .search login {
-            padding: 6px 15px;
-            border: 2px solid #333;
-            border-radius: 20px;
-            background-color: #a0a0a0;
-            color: #fff;
-            font-size: 14px;
+        
+        .input-group input {
             width: 100%;
-            box-sizing: border-box;
-            transition: all 0.3s;
-        }
-
-        .login input:hover {
-            background-color: #ecffec;
-            border-color: #C0C0C0;
-        }
-
-            .login input:focus {
-                outline: none;
-                background-color: #fff;
-                color: #333;
-                border-color: #ffd98a;
-                box-shadow: 0 0 5px #ffd98a;
-            }
-        .password {
-            margin-left: 0px;
-            flex-shrink: 0;
-            flex-grow: 1;
-            max-width: 600px;
-        }
-
-        .password login {
-            padding: 6px 15px;
-            border: 2px solid #333;
+            padding: 10px 15px;
+            border: 2px solid #A9A9A9;
             border-radius: 20px;
-            background-color: #a0a0a0;
-            color: #fff;
+            background-color: #f8f8f8;
             font-size: 14px;
-            width: 100%;
-            box-sizing: border-box;
             transition: all 0.3s;
+            font-family: inherit;
         }
-
-        .password input:hover {
-            background-color: #ecffec;
-            border-color: #C0C0C0;
+        
+        .input-group input:hover {
+            background-color: #fff;
+            border-color: #ffd98a;
         }
-
-            .password input:focus {
-                outline: none;
-                background-color: #fff;
-                color: #333;
-                border-color: #ffd98a;
-                box-shadow: 0 0 5px #ffd98a;
-            }
+        
+        .input-group input:focus {
+            outline: none;
+            background-color: #fff;
+            border-color: #ffd98a;
+            box-shadow: 0 0 5px #ffd98a;
+        }
+        
+        /* Подсказки */
         .hint {
-            font-size: 11px; /* Уменьшаем размер текста */
-            color: #666;
+            font-size: 11px;
+            color: #888;
             margin-top: 5px;
-            margin-bottom: 0;
-            line-height: 1.2;
-            margin-bottom: 15px;
+            margin-left: 12px;
+            line-height: 1.3;
         }
-        .button_input {
-            margin-left: 0px;
-            flex-shrink: 0;
-            flex-grow: 1;
-            max-width: 600px;
-            margin-bottom: 15px;
+        
+        /* Кнопка входа */
+        .button-group {
+            margin: 25px 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-        .Ne_poluchaetcha_zayti {
+        
+        .btn-submit {
+            background-color: #696969;
+            border: 2px solid #A9A9A9;
+            border-radius: 25px;
+            padding: 8px 28px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #DCDCDC;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        
+        .btn-submit:hover {
+            background-color: #708090;
+            border-color: #ffd98a;
+            color: #fff;
+        }
+        
+        /* Ссылки-кнопки */
+        .action-link {
+            color: #696969;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        .action-link:hover {
+            color: #ffd98a;
+            text-decoration: underline;
+        }
+        
+        /* Блок "Не получается залогиниться?" */
+        .help-header {
             background-color: #DCDCDC;
-            padding: 4px 20px; /* Внимание! Я сделал замену: было 4px 15px, стало 4px 20px - как у картинок. Стало лучше??*/ 
+            padding: 4px 20px;
             border-bottom: 2px solid #D3D3D3;
             display: flex;
             align-items: center;
             gap: 15px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 25px auto 15px auto;
             width: 100%;
-            margin-bottom: 15px;
-            padding: 4px 20px;
         }
-
+        
+        .help-header span {
+            font-weight: bold;
+            color: #333;
+            flex-shrink: 0;
+        }
+        
+        /* Список советов */
+        .help-list {
+            background: #fafafa;
+            padding: 18px 25px;
+            border-left: 3px solid #DCDCDC;
+            margin-top: 5px;
+            line-height: 1.7;
+            font-size: 14px;
+            color: #444;
+        }
+        
+        .help-list ul {
+            margin: 8px 0 0 0;
+            padding-left: 20px;
+        }
+        
+        .help-list li {
+            margin: 5px 0;
+        }
+        
+        /* Заголовки страницы */
+        .page-title {
+            color: #333;
+            border-left: 4px solid #696969;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .page-subtitle {
+            color: #666;
+            font-weight: normal;
+            margin-top: -10px;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        /* Разделительная линия */
+        hr {
+            margin: 25px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(to right, #DCDCDC, transparent);
+        }
+        
+        /* Адаптив */
+        @media (max-width: 600px) {
+            .input-group { max-width: 100%; }
+            .button-group { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .help-list { padding: 12px 18px; }
+        }
     </style>
 </head>
 <body>
-    <!-- Шапка с логотипом, меню и поиском -->
+    <!-- Шапка  -->
     <header>
-        <!-- Логотип, картинка + текст -->
-        <div class="logo"> <a href="TavernaTimur.html">
-    <img src="Logo.jpg" alt="Таверна Тимы — логотип"></a>
-    <span>Таверна Тимы</span>
-</div>
-
-        <!-- Меню -->
+        <div class="logo">
+            <a href="TavernaTimur.html">
+                <img src="Logo.jpg" alt="Таверна Тимы — логотип">
+            </a>
+            <span>Таверна Тимы</span>
+        </div>
         <ul id="menu">
-            <li>
-                <a href="#">Игры</a>
+            <li><a href="#">Игры</a>
                 <ul>
-                    <li><a href="#">Дока 2</a></li>
-                    <li><a href="#">Майнкрафт</a></li>
-                    <li><a href="#">Ещё что-то</a></li>
-                    <li><a href="#">Тут наверное что-то ещё</a></li>
+                    <li><a href="#">Ожидаемые игры</a></li>
+                    <li><a href="#">Игроновости</a></li>
+                    <li><a href="#">Каталог игр</a></li>
+                    <li><a href="#">Ретро-спектива</a></li>
                     <li><a href="#">И ещё</a></li>
                     <li><a href="#">И тут что-то ещё</a></li>
                     <li><a href="#">Тимур</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#">Сообщество</a>
+            <li><a href="#">Сообщество</a>
                 <ul>
                     <li><a href="#">Форум</a></li>
-                    <li><a href="#">Вумен ру</a></li>
+                    <li><a href="https://www.woman.ru/forum/">Вумен ру</a></li>
                     <li><a href="#">Форум по доте</a></li>
                     <li><a href="#">Создать форум</a></li>
                 </ul>
             </li>
             <li><a href="#">Разное</a></li>
         </ul>
-
-        <!-- Поле поиска -->
         <div class="search">
             <input type="text" placeholder="🔍 Поиск по сайту...">
         </div>
-
-        <!-- Чат -->
-        <div class="forum">
-            <a href="te.html">💬</a>
-        </div>
-
-        <!-- Личный кабинет -->
-        <div class="office-link">
-            <a href="TavernaTimurReg.html">Личный кабинет</a>
-        </div>
+        <div class="forum"><a href="te.html">💬</a></div>
+        <div class="office-link"><a href="TavernaTimurReg.html">Личный кабинет</a></div>
     </header>
 
+    <!-- Основной контент -->
     <main>
-        <!-- Маин контент -->
-        <div align="left">
-            <h2>Авторизация</h2>
-            <h4>На данной странице вы сможете авторизоваться на нашем сайте</h4>
+        <h2 class="page-title">Авторизация</h2>
+        <h4 class="page-subtitle">На данной странице вы сможете авторизоваться на нашем сайте</h4>
 
-            <div class="login">
-                <input type="text" placeholder="Логин (никнейм)">
-                <div class="hint">Чувствителен к регистру</div>
-            </div>
-
-            <div class="password">
-                <input type="text" placeholder="Пароль">
-                <div class="hint">Чувствителен к регистру</div>
-            </div>
-            <div class="button_input">
-                <input type="submit" value="Вход"> <a href="te.html">Зарегистрировать новый аккаунт</a> <a href="te.html">Забыли пароль?</a>
-            </div>
+        <!-- Поле Логин -->
+        <div class="input-group">
+            <input type="text" placeholder="Логин (никнейм)">
+            <div class="hint">⚠️ Чувствителен к регистру</div>
         </div>
-        <div class="Ne_poluchaetcha_zayti">
-            <span>Не получается залогиниться?</span>
-        </div>
-        <a>
-            Во всех подобных случаях у пользователей дело в одном из:<br>
 
-            • Вводят емайл вместо логина (никнейма);<br>
-            • Вводят большие буквы вместо маленьких или наоборот;<br>
-            • Один из символов русского имени написан на английской раскладке;<br>
-            • Один из символов английского имени написан на русской раскладке;<br>
-            • Браузер "исправляет" логин, например делает первую букву большой вместо маленькой;
-        </a>
+        <!-- Поле Пароль -->
+        <div class="input-group">
+            <input type="password" placeholder="Пароль">
+            <div class="hint">⚠️ Чувствителен к регистру</div>
+        </div>
+
+        <!-- Кнопки действий -->
+        <div class="button-group">
+            <input type="submit" value="Вход" class="btn-submit">
+            <a href="te.html" class="action-link">📝 Зарегистрировать новый аккаунт</a>
+            <a href="te.html" class="action-link">🔐 Забыли пароль?</a>
+        </div>
     </main>
 
+    <!-- Блок "Не получается залогиниться?" -->
+    <div class="help-header">
+        <span> Не получается залогиниться?</span>
+    </div>
+    
+    <main>
+        <div class="help-list">
+            Во всех подобных случаях у пользователей дело в одном из:
+            <ul>
+                <li>Вводят email вместо логина (никнейма);</li>
+                <li>Вводят большие буквы вместо маленьких или наоборот;</li>
+                <li>Один из символов русского имени написан на английской раскладке;</li>
+                <li>Один из символов английского имени написан на русской раскладке;</li>
+                <li>Браузер "исправляет" логин, например делает первую букву большой вместо маленькой.</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- скрипт для подсветки активного пункта меню -->
+    <script>
+        // Подсветка активного пункта "Личный кабинет" 
+        document.addEventListener('DOMContentLoaded', function() {
+            const officeLink = document.querySelector('.office-link a');
+            if (officeLink && window.location.pathname.includes('TavernaTimurReg')) {
+                officeLink.style.textDecoration = 'underline';
+                officeLink.style.color = '#ffd98a';
+            }
+        });
+    </script>
 </body>
 </html>
