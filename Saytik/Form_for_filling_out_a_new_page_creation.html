@@ -460,6 +460,26 @@
             color: #721c24;
         }
         
+        .page-name-input {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 12px;
+            border: 1px solid #ffd98a;
+        }
+        
+        .page-name-input label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .page-name-input input {
+            padding: 8px 15px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+        
         @media (max-width: 900px) {
             .search { max-width: none; width: 100%; }
             .screenshot-item { width: calc(50% - 20px); }
@@ -478,9 +498,9 @@
     <header>
         <div class="logo">
             <a href="#">
-                <img src="Logo.jpg" alt="Таверна Тимы — логотип">
+                <img src="Logo.jpg" alt="Таверна Тимура — логотип">
             </a>
-            <span>Таверна Тимы</span>
+            <span>Таверна Тимура</span>
         </div>
         <ul id="menu">
             <li><a href="#">Игры</a>
@@ -512,21 +532,29 @@
     </header>
 
     <div class="control-panel">
-        <button class="generate-btn" id="generatePageBtn"> РЕДАКТИРОВАТЬ КОНТЕНТ</button>
+        <div class="page-name-input">
+            <label>📄 Название страницы игры:</label>
+            <input type="text" id="pageName" placeholder="например: timur_legend">
+            <small style="display: block; margin-top: 5px; color: #666;">Будет создана папка с этим именем и JSON файл</small>
+        </div>
+        
+        <button class="generate-btn" id="generatePageBtn">Создать контент</button>
         
         <div class="separate-fields" id="separateFields" style="display: none;">
             <div class="field-group">
                 <h3>🏷️ Основная информация</h3>
                 <label>Заголовок страницы:</label>
-                <input type="text" id="mainTitle" value="TIMUR: Легенда Таверны">
+                <input type="text" id="mainTitle" placeholder="Введите заголовок">
                 <label>URL постера:</label>
-                <input type="text" id="posterSrc" value="Rec_lama.jpg">
+                <input type="text" id="posterSrc" placeholder="poster.jpg">
                 <label>Ширина постера (px):</label>
-                <input type="number" id="posterWidth" value="220">
+                <input type="text" id="posterWidth" placeholder="400">
                 <label>Высота постера (px):</label>
-                <input type="number" id="posterHeight" value="330">
+                <input type="text" id="posterHeight" placeholder="auto">
+                <label>Alt текст постера:</label>
+                <input type="text" id="posterAlt" placeholder="Описание постера">
                 <label>Описание под постером:</label>
-                <input type="text" id="posterDesc" value="Главный герой вселенной «Таверна TimurikaL» — харизматичный искатель приключений, чьи подвиги вдохновляют тысячи.">
+                <textarea id="posterDesc" rows="3" placeholder="Введите описание..."></textarea>
             </div>
             
             <div class="field-group">
@@ -564,16 +592,18 @@
     </div>
 
     <main id="contentContainer">
+        <p style="text-align: center; color: #999; padding: 40px;">Заполните форму и нажмите "Сгенерировать страницу"</p>
     </main>
 
     <script>
         let currentData = {
-            mainTitle: "TIMUR: Легенда Таверны",
+            mainTitle: "",
             poster: {
-                src: "Rec_lama.jpg",
-                width: 220,
-                height: 330,
-                description: "Главный герой вселенной «Таверна TimurikaL» — харизматичный искатель приключений, чьи подвиги вдохновляют тысячи."
+                src: "",
+                width: "",
+                height: "",
+                alt: "",
+                description: ""
             },
             infoCards: [],
             screenshots: [],
@@ -583,66 +613,31 @@
         };
         
         function initializeData() {
-            currentData.infoCards = [
-                { title: "📋 Информация", content: "<strong>Жанр:</strong> Action/RPG<br><strong>Платформы:</strong> PC, PS5, Xbox<br><strong>Дата выхода:</strong> 2025 г.<br><strong>Язык:</strong> Русский, English" },
-                { title: "⭐ Рейтинг", content: "<strong>Metacritic:</strong> 88/100<br><strong>Пользователи:</strong> 9.2/10<br><strong>Оценка редакции:</strong> 92%" },
-                { title: "🏢 Студия", content: "<strong>Разработчик:</strong> TimurikaL Games<br><strong>Издатель:</strong> Indie World<br><strong>Страна:</strong> Россия / Worldwide" },
-                { title: "📖 Описание", content: "«TIMUR» — захватывающее приключение в фэнтези-мире, где каждый выбор меняет сюжет. Исследуйте таверны, сражайтесь с тёмными силами и находите верных спутников." }
-            ];
-            
-            currentData.screenshots = [
-                { url: "https://via.placeholder.com/300x200?text=Сражение+с+драконом", alt: "Эпичная битва" },
-                { url: "https://via.placeholder.com/300x200?text=Таверна+Тимура", alt: "Интерьер таверны" },
-                { url: "https://via.placeholder.com/300x200?text=Диалог+с+Ксюшей", alt: "Встреча с магом" },
-                { url: "https://via.placeholder.com/300x200?text=Магия+огня", alt: "Заклинание" }
-            ];
-            
-            currentData.videos = [
-                { embed: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Официальный трейлер" },
-                { embed: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Геймплейный ролик" },
-                { embed: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Как создавалась игра" }
-            ];
-            
-            currentData.characters = [
-                { name: "Тимур", role: "Главный герой", desc: "Отважный искатель приключений", img: "Rec_lama.jpg" },
-                { name: "Ангелина", role: "Маг ворда и повелительница РБД", desc: "Таинственная союзница", img: "https://via.placeholder.com/100?text=Ksyusha" },
-                { name: "Виктор", role: "Воин", desc: "Непобедимый защитник", img: "https://via.placeholder.com/100?text=Gosh" },
-                { name: "Олег", role: "Хоккеист (Вдохновитель)", desc: "Отважный хоккеист, способный ушатать шайбой любого", img: "https://via.placeholder.com/100?text=Nikita" }
-            ];
-            
-            currentData.relatedLinks = [
-                { text: "TIMUR: Начало", url: "#" },
-                { text: "Официальный саундтрек", url: "#" },
-                { text: "Таверна Тимы — форум", url: "#" },
-                { text: "Комикс «Путь Timurа»", url: "#" },
-                { text: "DLC «Тёмный алтарь»", url: "#" }
-            ];
-            
             renderSeparateFields();
         }
         
         function addInfoCard() {
-            currentData.infoCards.push({ title: "Новая карточка", content: "Содержание карточки" });
+            currentData.infoCards.push({ title: "Заголовок карточки", content: "Содержание карточки" });
             renderInfoCards();
         }
         
         function addScreenshot() {
-            currentData.screenshots.push({ url: "https://via.placeholder.com/300x200", alt: "Новый скриншот" });
+            currentData.screenshots.push({ url: "", alt: "Описание скриншота" });
             renderScreenshots();
         }
         
         function addVideo() {
-            currentData.videos.push({ embed: "https://www.youtube.com/embed/dQw4w9WgXcQ", title: "Новое видео" });
+            currentData.videos.push({ embed: "", title: "Название видео" });
             renderVideos();
         }
         
         function addCharacter() {
-            currentData.characters.push({ name: "Новый персонаж", role: "Роль", desc: "Описание", img: "https://via.placeholder.com/100" });
+            currentData.characters.push({ name: "Имя персонажа", role: "Роль", desc: "Описание", img: "" });
             renderCharacters();
         }
         
         function addLink() {
-            currentData.relatedLinks.push({ text: "Новая ссылка", url: "#" });
+            currentData.relatedLinks.push({ text: "Текст ссылки", url: "#" });
             renderLinks();
         }
         
@@ -858,14 +853,16 @@
         }
         
         function escapeHtml(str) {
+            if (!str) return '';
             return String(str).replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]);
         }
         
         function generatePage() {
             currentData.mainTitle = document.getElementById('mainTitle').value;
             currentData.poster.src = document.getElementById('posterSrc').value;
-            currentData.poster.width = parseInt(document.getElementById('posterWidth').value) || 220;
-            currentData.poster.height = parseInt(document.getElementById('posterHeight').value) || 330;
+            currentData.poster.width = document.getElementById('posterWidth').value;
+            currentData.poster.height = document.getElementById('posterHeight').value;
+            currentData.poster.alt = document.getElementById('posterAlt').value;
             currentData.poster.description = document.getElementById('posterDesc').value;
             
             let html = `
@@ -873,7 +870,7 @@
                 
                 <div class="main-poster">
                     <img src="${escapeHtml(currentData.poster.src)}" 
-                         alt="${escapeHtml(currentData.mainTitle)}" 
+                         alt="${escapeHtml(currentData.poster.alt)}" 
                          width="${currentData.poster.width}" 
                          height="${currentData.poster.height}">
                     <p>${escapeHtml(currentData.poster.description)}</p>
@@ -949,21 +946,29 @@
             document.getElementById('contentContainer').innerHTML = html;
             
             const statusDiv = document.getElementById('jsonStatus');
-            statusDiv.textContent = '✓ Страница успешно сгенерирована!';
+            statusDiv.textContent = 'Страница успешно сгенерирована';
             statusDiv.className = 'json-status success';
             statusDiv.style.display = 'block';
             setTimeout(() => {
                 statusDiv.style.display = 'none';
             }, 3000);
             
-            sendToPython(currentData);
+            saveToPython(currentData);
         }
         
-        function sendToPython(data) {
-            const jsonData = JSON.stringify(data, null, 2);
-            localStorage.setItem('tavern_json_data', jsonData);
+        function saveToPython(data) {
+            const pageName = document.getElementById('pageName').value.trim();
+            if (!pageName) {
+                showStatus('Ошибка: Введите название страницы', 'error');
+                return;
+            }
             
-            fetch('/save_json', {
+            const jsonData = JSON.stringify({
+                page_name: pageName,
+                data: data
+            }, null, 2);
+            
+            fetch('/save_game_json', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -971,23 +976,40 @@
                 body: jsonData
             })
             .then(response => response.json())
-            .then(data => {
-                console.log('Success:', data);
-                const statusDiv = document.getElementById('jsonStatus');
-                statusDiv.textContent = '✓ Данные успешно отправлены в Python!';
-                statusDiv.className = 'json-status success';
-                statusDiv.style.display = 'block';
-                setTimeout(() => {
-                    statusDiv.style.display = 'none';
-                }, 3000);
+            .then(result => {
+                if (result.success) {
+                    showStatus(`${result.message}`, 'success');
+                } else {
+                    showStatus(`${result.message}`, 'error');
+                }
             })
             .catch((error) => {
                 console.error('Error:', error);
-                const statusDiv = document.getElementById('jsonStatus');
-                statusDiv.textContent = '⚠ Данные сохранены локально. Для отправки в Python запустите сервер.';
-                statusDiv.className = 'json-status';
-                statusDiv.style.display = 'block';
+                downloadAsFile(jsonData, pageName);
+                showStatus('Сервер не запущен. JSON файл был скачан автоматически!', 'error');
             });
+        }
+        
+        function downloadAsFile(jsonData, pageName) {
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${pageName}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('jsonStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = `json-status ${type}`;
+            statusDiv.style.display = 'block';
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 4000);
         }
         
         let fieldsVisible = false;
@@ -998,12 +1020,11 @@
             if (!fieldsVisible) {
                 separateFields.style.display = 'grid';
                 fieldsVisible = true;
-                generateBtn.textContent = 'СГЕНЕРИРОВАТЬ СТРАНИЦУ';
+                generateBtn.textContent = 'Сгенерировать страницу';
             } else {
                 generatePage();
             }
         });
-        
         
         initializeData();
         
