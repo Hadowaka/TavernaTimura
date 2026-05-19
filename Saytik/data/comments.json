@@ -1,0 +1,30 @@
+[
+  {
+    "id": "c0000000-0000-0000-0000-000000000001",
+    "post_id": "a1b2c3d4-0000-0000-0000-000000000001",
+    "content": "Thanks for the welcome! Really excited to learn back-end development.",
+    "author": "Charlie",
+    "created_at": "2024-07-01T11:00:00+00:00"
+  },
+  {
+    "id": "c0000000-0000-0000-0000-000000000002",
+    "post_id": "a1b2c3d4-0000-0000-0000-000000000001",
+    "content": "Great starting point. The /docs page is incredibly useful!",
+    "author": "Diana",
+    "created_at": "2024-07-01T12:30:00+00:00"
+  },
+  {
+    "id": "c0000000-0000-0000-0000-000000000003",
+    "post_id": "a1b2c3d4-0000-0000-0000-000000000002",
+    "content": "The 422 error messages are super descriptive. Love that feature.",
+    "author": "Eve",
+    "created_at": "2024-07-02T10:00:00+00:00"
+  },
+  {
+    "id": "72fcc65d-932e-4d57-b20c-5ddb620dd747",
+    "post_id": "25ab34f9-073d-40c9-b88b-a51630ba97b4",
+    "content": "comment",
+    "author": "tim",
+    "created_at": "2026-05-19T22:53:12.684037+00:00"
+  }
+]
