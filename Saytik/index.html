@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Forum — FastAPI Learning Project</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style>
+    /* A tiny set of custom styles on top of Tailwind */
+    body { font-family: 'Courier New', monospace; }
+
+    /* Fade-in animation for dynamically added cards */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fadeIn 0.25s ease-out; }
+
+    /* Style for inline code / API paths */
+    code {
+      background: #1e293b;
+      color: #7dd3fc;
+      padding: 1px 5px;
+      border-radius: 4px;
+      font-size: 0.85em;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <!-- =====================================================
+       HEADER
+       ===================================================== -->
+  <header class="bg-slate-900 border-b border-slate-700 px-6 py-4 flex items-center justify-between">
+    <div>
+      <h1 class="text-xl font-bold text-sky-400">⚡ FastAPI Forum</h1>
+      <p class="text-xs text-slate-400 mt-0.5">
+        Learning project — Backend: <code>http://127.0.0.1:8000</code>
+      </p>
+    </div>
+    <a
+      href="http://127.0.0.1:8000/docs"
+      target="_blank"
+      class="text-xs bg-sky-700 hover:bg-sky-600 text-white px-3 py-1.5 rounded transition"
+    >
+      📖 Open /docs
+    </a>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-8 space-y-10">
+
+    <!-- ===================================================
+         SECTION 1 — WHAT THIS IS
+         =================================================== -->
+    <section class="bg-slate-900 border border-slate-700 rounded-xl p-5 text-sm text-slate-300 space-y-2">
+      <h2 class="text-base font-semibold text-white">📚 What is this?</h2>
+      <p>
+        This is a <strong class="text-sky-400">minimal frontend</strong> for a
+        FastAPI forum API. The real learning happens in the Python files.
+        Every button here fires an HTTP request to the API — watch the
+        <strong class="text-yellow-400">Request / Response Log</strong> below
+        to see exactly what is sent and received.
+      </p>
+      <p>
+        You can also use the interactive <a href="http://127.0.0.1:8000/docs" target="_blank" class="text-sky-400 underline">/docs</a>
+        page or a tool like <strong>curl</strong> / <strong>Postman</strong> to test the API directly.
+      </p>
+      <div class="grid grid-cols-2 gap-2 mt-3 text-xs">
+        <div class="bg-slate-800 rounded p-2"><span class="text-green-400">GET</span>    <code>/posts</code> — list all posts</div>
+        <div class="bg-slate-800 rounded p-2"><span class="text-green-400">GET</span>    <code>/posts/{id}</code> — one post</div>
+        <div class="bg-slate-800 rounded p-2"><span class="text-blue-400">POST</span>   <code>/posts</code> — create post</div>
+        <div class="bg-slate-800 rounded p-2"><span class="text-yellow-400">PUT</span>    <code>/posts/{id}</code> — update post</div>
+        <div class="bg-slate-800 rounded p-2"><span class="text-red-400">DELETE</span> <code>/posts/{id}</code> — delete post</div>
+        <div class="bg-slate-800 rounded p-2"><span class="text-blue-400">POST</span>   <code>/comments/post/{id}</code> — add comment</div>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         SECTION 2 — CREATE A NEW POST
+         =================================================== -->
+    <section class="bg-slate-900 border border-slate-700 rounded-xl p-5 space-y-4">
+      <h2 class="text-base font-semibold text-white">
+        <span class="text-blue-400 text-xs font-mono bg-slate-800 px-2 py-0.5 rounded mr-2">POST /posts</span>
+        Create a New Post
+      </h2>
+
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Title <span class="text-red-400">*</span></label>
+          <input id="new-title" type="text" placeholder="Post title…"
+            class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-sm focus:outline-none focus:border-sky-500" />
+        </div>
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Author <span class="text-red-400">*</span></label>
+          <input id="new-author" type="text" placeholder="Your name…"
+            class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-sm focus:outline-none focus:border-sky-500" />
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Content <span class="text-red-400">*</span></label>
+        <textarea id="new-content" rows="3" placeholder="What's on your mind?"
+          class="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-sm focus:outline-none focus:border-sky-500 resize-none"></textarea>
+      </div>
+      <button onclick="createPost()"
+        class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-semibold px-4 py-2 rounded transition">
+        ➕ Submit Post
+      </button>
+    </section>
+
+    <!-- ===================================================
+         SECTION 3 — ALL POSTS
+         =================================================== -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-base font-semibold text-white">
+          <span class="text-green-400 text-xs font-mono bg-slate-800 px-2 py-0.5 rounded mr-2">GET /posts</span>
+          All Posts
+        </h2>
+        <button onclick="loadPosts()"
+          class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">
+          🔄 Refresh
+        </button>
+      </div>
+      <div id="posts-container" class="space-y-4">
+        <p class="text-slate-500 text-sm italic">Loading posts…</p>
+      </div>
+    </section>
+
+    <!-- ===================================================
+         SECTION 4 — REQUEST / RESPONSE LOG
+         =================================================== -->
+    <section class="bg-slate-900 border border-slate-700 rounded-xl p-5">
+      <div class="flex items-center justify-between mb-3">
+        <h2 class="text-base font-semibold text-white">🖥️ Request / Response Log</h2>
+        <button onclick="clearLog()"
+          class="text-xs text-slate-400 hover:text-white transition">Clear</button>
+      </div>
+      <div id="log" class="space-y-3 max-h-96 overflow-y-auto text-xs font-mono">
+        <p class="text-slate-500 italic">API calls will appear here…</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================
+       POST CARD TEMPLATE  (hidden, cloned by JS)
+       ===================================================== -->
+  <template id="post-template">
+    <article class="bg-slate-900 border border-slate-700 rounded-xl p-5 space-y-3 fade-in">
+      <!-- Post Header -->
+      <div class="flex justify-between items-start gap-2">
+        <div>
+          <h3 class="post-title font-semibold text-white text-base"></h3>
+          <p class="text-xs text-slate-500 mt-0.5 post-meta"></p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button class="btn-edit text-xs bg-yellow-700 hover:bg-yellow-600 text-white px-2 py-1 rounded transition">✏️ Edit</button>
+          <button class="btn-delete text-xs bg-red-800 hover:bg-red-700 text-white px-2 py-1 rounded transition">🗑️ Delete</button>
+        </div>
+      </div>
+
+      <!-- Post Content -->
+      <p class="post-content text-slate-300 text-sm leading-relaxed border-t border-slate-700 pt-3"></p>
+
+      <!-- Edit Form (hidden by default) -->
+      <div class="edit-form hidden space-y-2 border-t border-slate-700 pt-3">
+        <p class="text-xs text-yellow-400 font-semibold">
+          <span class="font-mono bg-slate-800 px-1 rounded">PUT /posts/{id}</span> — Edit Post
+        </p>
+        <input type="text" class="edit-title w-full bg-slate-800 border border-yellow-600 rounded px-3 py-1.5 text-sm focus:outline-none" placeholder="New title…" />
+        <textarea class="edit-content w-full bg-slate-800 border border-yellow-600 rounded px-3 py-1.5 text-sm focus:outline-none resize-none" rows="2" placeholder="New content…"></textarea>
+        <div class="flex gap-2">
+          <button class="btn-save-edit text-xs bg-yellow-600 hover:bg-yellow-500 text-white px-3 py-1.5 rounded transition">💾 Save</button>
+          <button class="btn-cancel-edit text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded transition">Cancel</button>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="border-t border-slate-700 pt-3 space-y-2">
+        <p class="text-xs text-slate-400 font-semibold">
+          <span class="font-mono bg-slate-800 px-1 rounded text-green-400">GET /comments/post/{id}</span>
+          — Comments
+        </p>
+        <div class="comments-list space-y-1 text-xs text-slate-400 italic pl-2">Loading…</div>
+
+        <!-- Add Comment Form -->
+        <div class="flex gap-2 mt-2">
+          <input type="text" class="comment-author bg-slate-800 border border-slate-600 rounded px-2 py-1 text-xs focus:outline-none focus:border-sky-500 w-28" placeholder="Name…" />
+          <input type="text" class="comment-content flex-1 bg-slate-800 border border-slate-600 rounded px-2 py-1 text-xs focus:outline-none focus:border-sky-500" placeholder="Write a comment…" />
+          <button class="btn-comment text-xs bg-sky-700 hover:bg-sky-600 text-white px-2 py-1 rounded transition">💬 Post</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+
+  <!-- =====================================================
+       JAVASCRIPT — All API communication lives here
+       ===================================================== -->
+  <script>
+    // -------------------------------------------------------
+    // CONFIGURATION
+    // Change this if your FastAPI server runs on a different
+    // host or port.
+    // -------------------------------------------------------
+    const API_BASE = "http://127.0.0.1:8000";
+
+    // -------------------------------------------------------
+    // LOGGING UTILITY
+    // Appends a colour-coded entry to the on-screen log so
+    // you can see every request and response without opening
+    // DevTools.
+    // -------------------------------------------------------
+    function log(method, url, requestBody, status, responseData) {
+      const logEl = document.getElementById("log");
+
+      // Remove the "calls will appear here" placeholder
+      const placeholder = logEl.querySelector("p.italic");
+      if (placeholder) placeholder.remove();
+
+      const methodColors = {
+        GET:    "text-green-400",
+        POST:   "text-blue-400",
+        PUT:    "text-yellow-400",
+        DELETE: "text-red-400",
+      };
+
+      const statusColor = status >= 200 && status < 300
+        ? "text-green-300"
+        : "text-red-300";
+
+      const entry = document.createElement("div");
+      entry.className = "bg-slate-800 rounded p-2 space-y-1 border border-slate-700";
+      entry.innerHTML = `
+        <div class="flex gap-2 items-center">
+          <span class="font-bold ${methodColors[method] || 'text-white'}">${method}</span>
+          <span class="text-slate-300">${url}</span>
+          <span class="${statusColor} ml-auto">HTTP ${status}</span>
+        </div>
+        ${requestBody ? `<div class="text-slate-500">↑ Request: <span class="text-slate-300">${JSON.stringify(requestBody)}</span></div>` : ""}
+        <div class="text-slate-500">↓ Response: <span class="text-slate-300 break-all">${JSON.stringify(responseData).slice(0, 300)}</span></div>
+      `;
+      logEl.prepend(entry); // newest at top
+    }
+
+    // -------------------------------------------------------
+    // CORE FETCH WRAPPER
+    // A thin wrapper around the native fetch() API.
+    // Handles JSON serialisation, adds Content-Type header,
+    // and logs every request/response automatically.
+    //
+    // Returns: { status, data }  (data = parsed JSON or null)
+    // -------------------------------------------------------
+    async function apiFetch(method, path, body = null) {
+      const url = API_BASE + path;
+
+      const options = {
+        method,
+        headers: { "Content-Type": "application/json" },
+      };
+
+      if (body) {
+        // JSON.stringify converts the JS object → JSON string
+        options.body = JSON.stringify(body);
+      }
+
+      try {
+        const response = await fetch(url, options);
+
+        // 204 No Content has no body — don't try to parse it
+        const data = response.status === 204
+          ? null
+          : await response.json();
+
+        log(method, url, body, response.status, data);
+        return { status: response.status, data };
+
+      } catch (err) {
+        // Network error (server not running, CORS blocked, etc.)
+        log(method, url, body, 0, { error: err.message });
+        alert("⚠️ Could not reach the API.\nIs the FastAPI server running?\n\nRun: uvicorn main:app --reload");
+        return { status: 0, data: null };
+      }
+    }
+
+    // -------------------------------------------------------
+    // CLEAR LOG
+    // -------------------------------------------------------
+    function clearLog() {
+      document.getElementById("log").innerHTML =
+        '<p class="text-slate-500 italic">API calls will appear here…</p>';
+    }
+
+    // -------------------------------------------------------
+    // LOAD & RENDER ALL POSTS
+    // Called on page load and after every create/delete.
+    // -------------------------------------------------------
+    async function loadPosts() {
+      const container = document.getElementById("posts-container");
+      container.innerHTML = '<p class="text-slate-500 text-sm italic">Loading…</p>';
+
+      const { data: posts } = await apiFetch("GET", "/posts");
+
+      if (!posts || posts.length === 0) {
+        container.innerHTML = '<p class="text-slate-500 text-sm italic">No posts yet. Create one above!</p>';
+        return;
+      }
+
+      container.innerHTML = "";
+      for (const post of posts) {
+        container.appendChild(buildPostCard(post));
+        // Load comments for each post right after rendering the card
+        await loadComments(post.id);
+      }
+    }
+
+    // -------------------------------------------------------
+    // BUILD A POST CARD from the <template> element.
+    // Using a <template> keeps HTML in one place and avoids
+    // messy innerHTML string-building in JS.
+    // -------------------------------------------------------
+    function buildPostCard(post) {
+      // Clone the hidden template
+      const tmpl  = document.getElementById("post-template");
+      const card  = tmpl.content.cloneNode(true).querySelector("article");
+
+      // Stamp the post's data into the card
+      card.dataset.postId = post.id;
+      card.querySelector(".post-title").textContent   = post.title;
+      card.querySelector(".post-content").textContent = post.content;
+      card.querySelector(".post-meta").textContent    =
+        `by ${post.author}  ·  ${formatDate(post.created_at)}`;
+
+      // Pre-fill the edit inputs with current values
+      card.querySelector(".edit-title").value   = post.title;
+      card.querySelector(".edit-content").value = post.content;
+
+      // ---------- EDIT BUTTON ----------
+      card.querySelector(".btn-edit").addEventListener("click", () => {
+        card.querySelector(".edit-form").classList.toggle("hidden");
+      });
+
+      // ---------- CANCEL EDIT ----------
+      card.querySelector(".btn-cancel-edit").addEventListener("click", () => {
+        card.querySelector(".edit-form").classList.add("hidden");
+      });
+
+      // ---------- SAVE EDIT (PUT /posts/{id}) ----------
+      card.querySelector(".btn-save-edit").addEventListener("click", async () => {
+        const newTitle   = card.querySelector(".edit-title").value.trim();
+        const newContent = card.querySelector(".edit-content").value.trim();
+
+        if (!newTitle && !newContent) {
+          alert("Fill in at least one field to update.");
+          return;
+        }
+
+        // Only send fields that were filled in
+        const body = {};
+        if (newTitle)   body.title   = newTitle;
+        if (newContent) body.content = newContent;
+
+        const { status, data } = await apiFetch("PUT", `/posts/${post.id}`, body);
+
+        if (status === 200) {
+          // Update card in-place without a full reload
+          card.querySelector(".post-title").textContent   = data.title;
+          card.querySelector(".post-content").textContent = data.content;
+          card.querySelector(".edit-form").classList.add("hidden");
+        } else {
+          alert("Update failed: " + (data?.detail || "Unknown error"));
+        }
+      });
+
+      // ---------- DELETE BUTTON (DELETE /posts/{id}) ----------
+      card.querySelector(".btn-delete").addEventListener("click", async () => {
+        if (!confirm(`Delete post "${post.title}"?\nIts comments will also be removed.`)) return;
+
+        const { status } = await apiFetch("DELETE", `/posts/${post.id}`);
+
+        if (status === 204) {
+          // Also clean up orphaned comments
+          await apiFetch("DELETE", `/comments/post/${post.id}/all`);
+          card.remove();
+        }
+      });
+
+      // ---------- ADD COMMENT BUTTON ----------
+      card.querySelector(".btn-comment").addEventListener("click", async () => {
+        const author  = card.querySelector(".comment-author").value.trim();
+        const content = card.querySelector(".comment-content").value.trim();
+
+        if (!author || !content) {
+          alert("Both name and comment text are required.");
+          return;
+        }
+
+        const { status } = await apiFetch(
+          "POST",
+          `/comments/post/${post.id}`,
+          { author, content }
+        );
+
+        if (status === 201) {
+          card.querySelector(".comment-author").value  = "";
+          card.querySelector(".comment-content").value = "";
+          await loadComments(post.id);   // Refresh the comments list
+        }
+      });
+
+      return card;
+    }
+
+    // -------------------------------------------------------
+    // LOAD COMMENTS FOR A SPECIFIC POST
+    // GET /comments/post/{post_id}
+    // -------------------------------------------------------
+    async function loadComments(postId) {
+      // Find the card that owns this postId
+      const card = document.querySelector(`[data-post-id="${postId}"]`);
+      if (!card) return;
+
+      const list = card.querySelector(".comments-list");
+      const { status, data: comments } = await apiFetch("GET", `/comments/post/${postId}`);
+
+      if (status !== 200 || !comments || comments.length === 0) {
+        list.innerHTML = '<span class="not-italic text-slate-600">No comments yet.</span>';
+        return;
+      }
+
+      list.innerHTML = comments.map(c => `
+        <div class="flex items-start gap-2 group">
+          <span class="text-sky-400 font-semibold not-italic">${escHtml(c.author)}:</span>
+          <span class="not-italic text-slate-300 flex-1">${escHtml(c.content)}</span>
+          <button
+            onclick="deleteComment('${c.id}', '${postId}')"
+            class="text-slate-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition text-base leading-none"
+            title="Delete comment"
+          >×</button>
+        </div>
+      `).join("");
+    }
+
+    // -------------------------------------------------------
+    // DELETE A COMMENT
+    // DELETE /comments/{comment_id}
+    // -------------------------------------------------------
+    async function deleteComment(commentId, postId) {
+      const { status } = await apiFetch("DELETE", `/comments/${commentId}`);
+      if (status === 204) {
+        await loadComments(postId);  // Refresh the list
+      }
+    }
+
+    // -------------------------------------------------------
+    // CREATE A POST
+    // POST /posts
+    // -------------------------------------------------------
+    async function createPost() {
+      const title   = document.getElementById("new-title").value.trim();
+      const content = document.getElementById("new-content").value.trim();
+      const author  = document.getElementById("new-author").value.trim();
+
+      if (!title || !content || !author) {
+        alert("Title, content and author are all required.");
+        return;
+      }
+
+      const { status } = await apiFetch("POST", "/posts", { title, content, author });
+
+      if (status === 201) {
+        // Clear inputs
+        document.getElementById("new-title").value   = "";
+        document.getElementById("new-content").value = "";
+        document.getElementById("new-author").value  = "";
+        // Reload the posts list to show the new one
+        await loadPosts();
+      } else {
+        alert("Failed to create post.");
+      }
+    }
+
+    // -------------------------------------------------------
+    // HELPERS
+    // -------------------------------------------------------
+
+    // Format ISO date string to something readable
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleString();
+      } catch {
+        return iso;
+      }
+    }
+
+    // Escape HTML to prevent XSS when inserting user content
+    function escHtml(str) {
+      return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // -------------------------------------------------------
+    // INIT — load posts as soon as the page is ready
+    // -------------------------------------------------------
+    loadPosts();
+  </script>
+</body>
+</html>

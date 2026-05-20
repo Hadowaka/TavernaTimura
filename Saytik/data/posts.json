@@ -1,0 +1,34 @@
+[
+  {
+    "id": "a1b2c3d4-0000-0000-0000-000000000001",
+    "title": "Welcome to the Forum!",
+    "content": "This is a sample post to get you started. Feel free to explore the API using the /docs page or the frontend below.",
+    "author": "Admin",
+    "created_at": "2024-07-01T10:00:00+00:00",
+    "updated_at": "2024-07-01T10:00:00+00:00"
+  },
+  {
+    "id": "a1b2c3d4-0000-0000-0000-000000000002",
+    "title": "How does FastAPI handle validation?",
+    "content": "FastAPI uses Pydantic models to automatically validate request bodies. If a required field is missing or has the wrong type, FastAPI returns a 422 error with a detailed explanation.",
+    "author": "Alice",
+    "created_at": "2024-07-02T09:15:00+00:00",
+    "updated_at": "2024-07-02T09:15:00+00:00"
+  },
+  {
+    "id": "a1b2c3d4-0000-0000-0000-000000000003",
+    "title": "Why use JSON files instead of a real database?",
+    "content": "For learning purposes, JSON files let you see exactly what is stored without needing to set up a database server. Once you understand CRUD operations here, swapping in SQLite or PostgreSQL is the natural next step.",
+    "author": "Bob",
+    "created_at": "2024-07-03T14:30:00+00:00",
+    "updated_at": "2024-07-03T14:30:00+00:00"
+  },
+  {
+    "id": "25ab34f9-073d-40c9-b88b-a51630ba97b4",
+    "title": "some post",
+    "content": "testing or some sht",
+    "author": "Timur",
+    "created_at": "2026-05-19T22:52:56.721743+00:00",
+    "updated_at": "2026-05-19T22:52:56.721743+00:00"
+  }
+]
