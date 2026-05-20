@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ thread.title }}</title>
+</head>
+<body>
+    <h1>{{ thread.title }}</h1>
+    <p><em>Created at: {{ thread.created_at.strftime('%Y-%m-%d %H:%M') }}</em></p>
+    <hr>
+
+    <h2>Posts</h2>
+    {% if thread.posts %}
+        {% for post in thread.posts %}
+            <div>
+                <p>{{ post.content }}</p>
+                <small>{{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No replies yet. Be the first!</p>
+    {% endif %}
+
+    <!-- Form to add a reply -->
+    <h3>Add a reply</h3>
+    <form action="/threads/{{ thread.id }}/posts" method="post">
+        <textarea name="content" required></textarea><br>
+        <button type="submit">Reply</button>
+    </form>
+
+    <p><a href="/">← Back to forum</a></p>
+</body>
+</html>

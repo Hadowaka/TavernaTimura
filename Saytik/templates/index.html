@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Forum</title>
+</head>
+<body>
+    <h1>Forum</h1>
+
+    <!-- Form to create a new thread -->
+    <form action="/threads" method="post">
+        <label for="title">New thread title:</label>
+        <input type="text" id="title" name="title" required>
+        <button type="submit">Create Thread</button>
+    </form>
+
+    <h2>Threads</h2>
+    <ul>
+    {% for thread in threads %}
+        <li>
+            <a href="/threads/{{ thread.id }}">{{ thread.title }}</a>
+            ({{ thread.created_at.strftime('%Y-%m-%d %H:%M') }})
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
